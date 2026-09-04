@@ -109,13 +109,3 @@ Aislamiento de Red: Despliegue el honeypot en una VLAN o una red DMZ. No exponga
 Reubicación de SSH del Host: Cambie el puerto de administración de SSH del servidor Ubuntu (editando /etc/ssh/sshd_config.d/) a un puerto no estándar (ej. 2222) para evitar conflictos si Conpot habilita plantillas con servicio SSH o simulación de terminales.
 
 Logs: Los registros de ataques se generan en /var/log/conpot.log (en modo nativo) o pueden ser consultados en Docker mediante docker logs conpot_app. Se recomienda reenviar estos logs a un sistema SIEM remoto (como Elastic Stack o Splunk).
-
----
-
-¿Deseas que profundice en la configuración de la plantilla específica para un protocolo ICS concreto (ej. Modbus, BACnet, Siemens S7) o en la creación de un servicio `systemd` para automatizar el arranque en el despliegue nativo?
-
-<ElicitationsGroup message="¿Qué aspecto te gustaría detallar a continuación para el repositorio?">
-  <Elicitation label="Configurar un servicio systemd para despliegue nativo" query="Muestra cómo configurar un servicio systemd en Ubuntu 24.04 LTS para que el despliegue nativo de Conpot se ejecute automáticamente como demonio."/>
-  <Elicitation label="Explicar las plantillas (templates) de Conpot disponibles" query="Explica las diferentes plantillas (templates) disponibles en Conpot para simular distintos dispositivos SCADA y cómo cambiar entre ellas."/>
-  <Elicitation label="Integrar el envío de logs a un SIEM remoto" query="Explica cómo configurar la exportación de logs de Conpot hacia un servidor Syslog/SIEM externo para análisis de amenazas."/>
-</ElicitationsGroup>
