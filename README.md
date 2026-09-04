@@ -39,7 +39,7 @@ newgrp Docker
 Paso 2: Obtención del código fuente y construcción de la imagen
 ```
 > Clonar el repositorio oficial de Conpot
-git clone [https://github.com/mushorg/conpot.git](https://github.com/mushorg/conpot.git)
+git clone https://github.com/mushorg/conpot.git
 cd conpot
 > Construir la imagen Docker localmente
 docker build -t conpot:latest .
@@ -57,4 +57,38 @@ docker run -d \
   -p 47808:47808/udp \
   conpot:latest
 ```
+
+## Opción 2: Despliegue Nativo (Python Virtualenv)
+Este método ejecuta Conpot directamente sobre el sistema operativo base dentro de un entorno virtualizado de Python.
+
+Paso 1: Instalación de Python 3 y dependencias de compilación
+Ubuntu 24.04 LTS implementa PEP 668, por lo que es obligatorio el uso de un entorno virtual (venv):
+```
+sudo apt install -y python3-pip python3-venv python3-dev
+```
+
+Paso 2: Configuración del Entorno Virtual y Clonación
+```
+> Crear directorio de trabajo e instalar el entorno
+mkdir -p ~/honeypots
+cd ~/honeypots
+git clone [https://github.com/mushorg/conpot.git](https://github.com/mushorg/conpot.git)
+cd conpot
+> Crear y activar el entorno virtual
+python3 -m venv conpot_env
+source conpot_env/bin/activate
+> Actualizar herramientas de empaquetado e instalar Conpot
+pip install --upgrade pip setuptools wheel
+pip install .
+```
+
+Paso 3: Ejecución y Verificación Directa
+Para que Conpot pueda tomar puertos privilegiados (como el 502 de Modbus) en ejecución nativa sin ejecutarse completamente como root, se recomienda invocarlo mediante sudo manteniendo las variables del venv:
+```
+# Verificar que la instalación es correcta invocando la ayuda
+sudo ~/honeypots/conpot/conpot_env/bin/conpot --help
+# Iniciar Conpot con la plantilla por defecto (default/IEC 60870-5-104)
+sudo ~/honeypots/conpot/conpot_env/bin/conpot --template default
+```
+
 
